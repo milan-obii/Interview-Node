@@ -1,0 +1,207 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlogCarousel from '../../components/common/carousel/BlogCarousel.astro';
+import CountdownTimer from '../../components/common/timer/CountdownTimer.astro';
+import RegisterButton from '../../components/common/buttons/RegisterButton.astro';
+
+// Sample blog posts data (this would come from your database or CMS in production)
+export const blogPosts = [
+  {
+    id: 1,
+    title: "Ace Your Anthropic ML Interview: Top 25 Questions and Expert Tips",
+    fullContent: `
+      <p class="mb-4">Preparing for a machine learning (ML) interview at Anthropic? You're in the right place. Anthropic, the AI safety company behind Claude, has become one of the most exciting places to work in artificial intelligence. Their focus on developing reliable, interpretable, and steerable AI systems makes them a unique player in the field.</p>
+
+      <p class="mb-4">In this comprehensive guide, we'll walk through the 25 most common questions you might face in an Anthropic ML interview, along with expert advice on how to approach each one. We've gathered insights from successful candidates and industry experts to help you put your best foot forward.</p>
+
+      <h2 class="text-2xl font-bold text-primary mt-8 mb-4">Technical ML Questions</h2>
+
+      <h3 class="text-xl font-semibold mt-6 mb-3">1. Explain the concept of constitutional AI and its importance to Anthropic's approach.</h3>
+      <p class="mb-4">Constitutional AI involves training AI systems to follow a set of principles or "constitution" that guides their behavior. For Anthropic, this approach is central to creating AI that's harmless and honest. In your answer, discuss how constitutional AI helps address alignment problems by giving models explicit rules to follow, and how this differs from other alignment approaches.</p>
+
+      <h3 class="text-xl font-semibold mt-6 mb-3">2. How would you approach the problem of reducing hallucinations in large language models?</h3>
+      <p class="mb-4">This question tests your understanding of a key challenge in modern AI. Good answers should discuss techniques like: retrieval-augmented generation (RAG), calibrating model confidence, training on factual datasets, and implementing real-time fact-checking components. Mention both training-time and inference-time approaches.</p>
+
+      <h3 class="text-xl font-semibold mt-6 mb-3">3. Explain the RLHF (Reinforcement Learning from Human Feedback) process.</h3>
+      <p class="mb-4">RLHF is fundamental to how models like Claude are trained. Walk through the basic process: collecting human preferences, training a reward model, and then using reinforcement learning to optimize the language model according to that reward model. Discuss challenges in this approach, such as reward hacking or preference inconsistencies.</p>
+
+      <h2 class="text-2xl font-bold text-primary mt-8 mb-4">System Design Questions</h2>
+
+      <h3 class="text-xl font-semibold mt-6 mb-3">4. How would you design a system to detect when an LLM is attempting to generate harmful content?</h3>
+      <p class="mb-4">This tests your ability to think about AI safety systems. Discuss a multi-layered approach: content classifiers, embedding-based detection, red-teaming strategies, and user reporting mechanisms. Emphasize the importance of constantly updating these systems as models and evasion techniques evolve.</p>
+
+      <h3 class="text-xl font-semibold mt-6 mb-3">5. Design a scalable system for fine-tuning large language models with human feedback.</h3>
+      <p class="mb-4">Focus on both technical architecture and human workflow. Discuss distributed training infrastructure, data collection platforms, quality assurance for human feedback, and monitoring systems. Highlight how you'd ensure diversity in feedback sources and handle disagreements between annotators.</p>
+    `,
+    author: "Santosh Rout",
+    authorTitle: "Senior ML Engineer at Interview Node",
+    authorBio: "Santosh has 8+ years of experience in machine learning and has conducted over 500 technical interviews for top AI companies.",
+    authorImage: "/src/assets/blogs/author.jpg",
+    readTime: "09 min read",
+    date: "01st March 2025",
+    image: "/src/assets/blogs/team-1.png",
+    category: "Category 1",
+    tags: ["Machine Learning", "Interview Prep", "Anthropic", "AI Safety"]
+  },
+  {
+    id: 2,
+    title: "Ace Your Anthropic ML Interview: Top 25 Questions and Expert Tips",
+    fullContent: `
+      <p class="mb-4">Preparing for a machine learning (ML) interview at Anthropic? You're in the right place. Anthropic, the AI safety company behind Claude, has become one of the most exciting places to work in artificial intelligence. Their focus on developing reliable, interpretable, and steerable AI systems makes them a unique player in the field.</p>
+
+      <p class="mb-4">In this comprehensive guide, we'll walk through the 25 most common questions you might face in an Anthropic ML interview, along with expert advice on how to approach each one. We've gathered insights from successful candidates and industry experts to help you put your best foot forward.</p>
+
+      <h2 class="text-2xl font-bold text-primary mt-8 mb-4">Technical ML Questions</h2>
+
+      <h3 class="text-xl font-semibold mt-6 mb-3">1. Explain the concept of constitutional AI and its importance to Anthropic's approach.</h3>
+      <p class="mb-4">Constitutional AI involves training AI systems to follow a set of principles or "constitution" that guides their behavior. For Anthropic, this approach is central to creating AI that's harmless and honest. In your answer, discuss how constitutional AI helps address alignment problems by giving models explicit rules to follow, and how this differs from other alignment approaches.</p>
+
+      <h3 class="text-xl font-semibold mt-6 mb-3">2. How would you approach the problem of reducing hallucinations in large language models?</h3>
+      <p class="mb-4">This question tests your understanding of a key challenge in modern AI. Good answers should discuss techniques like: retrieval-augmented generation (RAG), calibrating model confidence, training on factual datasets, and implementing real-time fact-checking components. Mention both training-time and inference-time approaches.</p>
+    `,
+    author: "Santosh Rout",
+    authorTitle: "Senior ML Engineer at Interview Node",
+    authorBio: "Santosh has 8+ years of experience in machine learning and has conducted over 500 technical interviews for top AI companies.",
+    authorImage: "/src/assets/blogs/author.jpg",
+    readTime: "09 min read",
+    date: "01st March 2025",
+    image: "/src/assets/blogs/team-3.png",
+    category: "Category 2",
+    tags: ["Machine Learning", "Interview Prep", "Anthropic"]
+  },
+];
+
+// Get the blog post ID from the URL
+export function getStaticPaths() {
+  return blogPosts.map(post => ({
+    params: { id: post.id.toString() },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+// Get related posts (excluding current post)
+const relatedPosts = blogPosts
+  .filter(p => p.id !== post.id && p.category === post.category)
+  .slice(0, 2); // Limit to 2 related posts
+---
+
+<Layout>
+  <!-- Hero Section with blog post header -->
+  <section class="bg-gradient-to-r from-[#0B207C] to-[#637CF4] px-4 lg:px-10 2xl:px-20 text-white py-16 md:py-24">
+    <div class="container mx-auto ">
+      <div class=" mx-auto">
+        <!-- Back to blogs link -->
+        <a href="/blogs" class="inline-flex items-center text-white/80 hover:text-white mb-8 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+          </svg>
+          Back to Blogs
+        </a>
+
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6 lg:w-[70%] ">
+          {post.title}
+        </h1>
+
+        <div class="flex flex-wrap items-center gap-6 mb-8">
+          <div class="flex items-center">
+            <div class="size-4  overflow-hidden mr-3">
+              <img src="/src/assets/blogs/user.svg" alt={post.author} class="w-full h-full object-cover" />
+            </div>
+            <span>{post.author}</span>
+          </div>
+
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span>{post.date}</span>
+          </div>
+
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{post.readTime}</span>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="bg-[#0B207C]/30 rounded-2xl p-6 border border-blue-400/20 lg:w-[50%] ">
+
+            Summary Goes Here: At Interview Node, we bring you expert-driven insights, industry trends, and actionable strategies to help you excel in your interviews and career journey.
+
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Image and Content Section -->
+  <section class="container mx-auto px-4 lg:px-10 2xl:px-20 py-12">
+    <div class="max-w-4xl mx-auto">
+      <!-- Featured Image -->
+      <div class="rounded-xl overflow-hidden mb-12 shadow-md">
+        <img src={post.image} alt={post.title} class="w-full h-auto" />
+      </div>
+
+      <!-- Content -->
+      <div class="prose prose-lg mx-auto">
+        <div set:html={post.fullContent} />
+      </div>
+
+
+
+    </div>
+  </section>
+   <!-- Registration bar -->
+    <section>
+
+
+    <section class="container mx-auto px-4 lg:px-10 2xl:px-20 py-12">
+
+   <div class="bg-gradient-to-r from-[#0B207C] to-[#637CF4] text-white rounded-3xl py-10 px-6 md:px-12 lg:w-[85%] lg:mx-auto">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+      <h3 class="text-2xl font-semibold">Next Workshop in</h3>
+
+      <div class="w-full md:w-auto">
+        <CountdownTimer
+          timerId="journey-countdown"
+          bgColor="bg-white"
+          textColor="text-primary"
+          labelColor="text-gray-500"
+        />
+      </div>
+
+      <RegisterButton
+        textColour="text-primary"
+        backgroundColour="bg-white"
+        svgBackgroundColour="bg-primary"
+        svgTextColour="text-white"
+      />
+    </div>
+  </div>
+</section>
+</section>
+
+ <!-- todo: (8) blogs -->
+ <section class="px-4 lg:px-10 2xl:px-20 py-16 md:py-24 ">
+    <section class="container mx-auto">
+      <!-- Section title -->
+      <h2 class="text-3xl md:text-4xl font-bold text-primary text-center mb-6">
+        Insights from our team
+      </h2>
+
+      <p class="text-center text-gray-700 max-w-4xl mx-auto mb-16">
+        The Insights section at Interview Node brings you expertly crafted blogs covering interview preparation,
+        career growth, technical deep dives, and industry best practices.
+      </p>
+      <!-- Blog posts carousel -->
+      <BlogCarousel />
+    </section>
+
+
+  </section>
+
+
+</Layout>

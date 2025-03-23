@@ -1,0 +1,50 @@
+---
+import CompanyCarouselCard from './CompanyCarouselCard.astro';
+---
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<script is:inline src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<div class="company-carousel swiper">
+    <div class="swiper-wrapper">
+      <CompanyCarouselCard logo="/src/assets/company/1.svg" />
+      <CompanyCarouselCard logo="/src/assets/company/2.svg" />
+      <CompanyCarouselCard logo="/src/assets/company/3.svg" />
+      <CompanyCarouselCard logo="/src/assets/company/4.svg" />
+      <CompanyCarouselCard logo="/src/assets/company/5.svg" />
+      <CompanyCarouselCard logo="/src/assets/company/6.svg" />
+      <CompanyCarouselCard logo="/src/assets/company/7.svg" />
+      <CompanyCarouselCard logo="/src/assets/company/8.svg" />
+      <CompanyCarouselCard logo="/src/assets/company/9.svg" />
+    </div>
+    <!-- <div class="swiper-pagination"></div> -->
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Use CDN Swiper
+      const swiper = new Swiper('.company-carousel', {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+
+        breakpoints: {
+          480: {
+            slidesPerView: 4,
+            spaceBetween: 30
+          },
+          640: {
+            slidesPerView: 5,
+            spaceBetween: 40
+          },
+          1024: {
+            slidesPerView: 6,
+            spaceBetween: 50
+          }
+        }
+      });
+    });
+  </script>

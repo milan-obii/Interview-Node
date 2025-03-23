@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@tailwind utilities;
+html, body {
+    font-family: 'Poppins', sans-serif;
+  }
+@layer base {
+    .text-primary {
+        color: #0B207C;
+    }
+    .bg-primary {
+        background-color: #0B207C;
+    }
+
+}

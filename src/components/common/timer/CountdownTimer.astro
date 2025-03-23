@@ -1,0 +1,192 @@
+---
+// Accepts props for the target date and storage key
+const {
+  targetDate = new Date(Date.now() + 24 * 60 * 60 * 1000), // Default: 1 day from now
+  daysLabel = "Days",
+  hoursLabel = "Hrs",
+  minsLabel = "Mins",
+  secsLabel = "Secs",
+  // Add a unique ID to identify this timer instance for storage
+  timerId = "default-countdown",
+  // Optional initial values if coming from database
+  initialDays,
+  initialHours,
+  initialMinutes,
+  initialSeconds,
+  bgColor = "bg-white",
+  textColor = "text-primary",
+  labelColor = "text-gray-500"
+} = Astro.props;
+
+// Generate a unique DOM ID based on the timer ID to avoid conflicts with multiple instances
+const domIdPrefix = `countdown-${timerId}-`;
+---
+
+<div class={`countdown-container ${bgColor} rounded-2xl p-4 shadow-sm`}>
+  <div class="grid grid-cols-7  text-center">
+    <!-- Days -->
+    <div class="  ">
+      <div class={`text-3xl font-bold ${textColor}`} id={`${domIdPrefix}days`}>00</div>
+      <div class={`text-sm ${labelColor}`}>{daysLabel}</div>
+    </div>
+    <div class={`text-3xl  font-bold ${textColor}`}>
+        :
+    </div>
+    <!-- Hours -->
+    <div class=" ">
+      <div class={`text-3xl font-bold ${textColor}`} id={`${domIdPrefix}hours`}>00</div>
+      <div class={`text-sm ${labelColor}`}>{hoursLabel}</div>
+    </div>
+    <div class={`text-3xl  font-bold ${textColor}`}>
+        :
+    </div>
+    <!-- Minutes -->
+    <div class=" ">
+      <div class={`text-3xl font-bold ${textColor}`} id={`${domIdPrefix}minutes`}>00</div>
+      <div class={`text-sm ${labelColor}`}>{minsLabel}</div>
+    </div>
+    <div class={`text-3xl  font-bold ${textColor}`}>
+        :
+    </div>
+    <!-- Seconds -->
+    <div class=" ">
+      <div class={`text-3xl font-bold ${textColor}`} id={`${domIdPrefix}seconds`}>00</div>
+      <div class={`text-sm ${labelColor}`}>{secsLabel}</div>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{
+  targetDateStr: targetDate.toISOString(),
+  timerId,
+  domIdPrefix,
+  initialValues: {
+    days: initialDays,
+    hours: initialHours,
+    minutes: initialMinutes,
+    seconds: initialSeconds
+  }
+}}>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get elements using the unique prefix
+    const daysEl = document.getElementById(`${domIdPrefix}days`);
+    const hoursEl = document.getElementById(`${domIdPrefix}hours`);
+    const minutesEl = document.getElementById(`${domIdPrefix}minutes`);
+    const secondsEl = document.getElementById(`${domIdPrefix}seconds`);
+
+    if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+    // Create a storage key specific to this countdown
+    const storageKey = `countdown-${timerId}`;
+
+    // Function to retrieve stored countdown data
+    function getStoredCountdown() {
+      try {
+        const stored = localStorage.getItem(storageKey);
+        if (stored) {
+          return JSON.parse(stored);
+        }
+      } catch (e) {
+        console.error("Error retrieving stored countdown:", e);
+      }
+      return null;
+    }
+
+    // Function to store countdown data
+    function storeCountdown(endTime) {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify({
+          endTime: endTime
+        }));
+      } catch (e) {
+        console.error("Error storing countdown:", e);
+      }
+    }
+
+    // Determine the end time based on priority:
+    // 1. Use stored end time if available
+    // 2. Use initial values from props (database) if provided
+    // 3. Fall back to the target date passed in props
+    let endTime;
+
+    // Check for stored value first
+    const storedData = getStoredCountdown();
+    if (storedData && storedData.endTime) {
+      endTime = storedData.endTime;
+    }
+    // If we have initial values from database/props, use them
+    else if (initialValues.days !== undefined ||
+             initialValues.hours !== undefined ||
+             initialValues.minutes !== undefined ||
+             initialValues.seconds !== undefined) {
+
+      // Calculate total seconds from initial values
+      const days = initialValues.days || 0;
+      const hours = initialValues.hours || 0;
+      const minutes = initialValues.minutes || 0;
+      const seconds = initialValues.seconds || 0;
+
+      const totalSeconds = (days * 86400) + (hours * 3600) + (minutes * 60) + seconds;
+
+      // Set end time based on the provided initial values
+      endTime = Date.now() + (totalSeconds * 1000);
+
+      // Store this calculated end time
+      storeCountdown(endTime);
+    }
+    // Otherwise use the target date from props
+    else {
+      endTime = new Date(targetDateStr).getTime();
+      storeCountdown(endTime);
+    }
+
+    function updateCountdown() {
+      const now = Date.now();
+      const distance = endTime - now;
+
+      // Time calculations
+      const days = Math.max(0, Math.floor(distance / (1000 * 60 * 60 * 24)));
+      const hours = Math.max(0, Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+      const minutes = Math.max(0, Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+      const seconds = Math.max(0, Math.floor((distance % (1000 * 60)) / 1000));
+
+      // Add leading zeros
+      daysEl.textContent = days.toString().padStart(2, '0');
+      hoursEl.textContent = hours.toString().padStart(2, '0');
+      minutesEl.textContent = minutes.toString().padStart(2, '0');
+      secondsEl.textContent = seconds.toString().padStart(2, '0');
+
+      // If countdown is finished
+      if (distance < 0) {
+        clearInterval(countdownInterval);
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minutesEl.textContent = '00';
+        secondsEl.textContent = '00';
+
+        // Clear the stored data when finished
+        localStorage.removeItem(storageKey);
+      }
+    }
+
+    // Run immediately and then every second
+    updateCountdown();
+    const countdownInterval = setInterval(updateCountdown, 1000);
+  });
+</script>
+
+<style>
+  .countdown-container {
+    max-width: 100%;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
+  }
+
+  #countdown-seconds {
+    animation: pulse 1s infinite;
+  }
+</style>

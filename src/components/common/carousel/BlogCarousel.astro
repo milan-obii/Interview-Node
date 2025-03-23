@@ -1,0 +1,78 @@
+---
+import BlogCard from "../cards/BlogCard.astro";
+---
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<script is:inline src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<div class="insights-carousel swiper">
+    <div class="swiper-wrapper">
+      <!-- Blog post 1 -->
+      <div class="swiper-slide">
+      <BlogCard image="/src/assets/blogs/team-1.png" title="Ace Your Anthropic ML Interview: Top 25 Questions and Expert..." date="01st March 2025" author="Santosh Rout" />
+      </div>
+
+      <!-- Blog post 2 -->
+      <div class="swiper-slide">
+        <BlogCard image="/src/assets/blogs/team-2.png" title="Ace Your Anthropic ML Interview: Top 25 Questions and Expert..." date="01st March 2025" author="Santosh Rout" />
+      </div>
+
+      <!-- Blog post 3 -->
+      <div class="swiper-slide">
+        <BlogCard image="/src/assets/blogs/team-3.png" title="Ace Your Anthropic ML Interview: Top 25 Questions and Expert..." date="01st March 2025" author="Santosh Rout" />
+      </div>
+
+<!-- Blog post 3 -->
+<div class="swiper-slide">
+<BlogCard image="/src/assets/blogs/team-3.png" title="Ace Your Anthropic ML Interview: Top 25 Questions and Expert..." date="01st March 2025" author="Santosh Rout" />
+</div>
+    </div>
+
+    <!-- Pagination dots -->
+    <div class="swiper-pagination mt-8"></div>
+  </div>
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      const swiper = new Swiper('.insights-carousel', {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        loop: true,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        breakpoints: {
+          // When screen width is >= 640px (sm)
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          // When screen width is >= 1024px (lg)
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 24,
+          },
+        }
+      });
+    });
+  </script>
+
+  <style>
+    .insights-carousel {
+      padding-bottom: 50px;
+    }
+
+    .swiper-pagination {
+      bottom: 0 !important;
+    }
+
+    .swiper-pagination-bullet {
+      background: rgba(11, 32, 124, 0.3);
+    }
+
+    .swiper-pagination-bullet-active {
+      background: #0B207C;
+    }
+  </style>

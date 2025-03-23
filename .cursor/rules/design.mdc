@@ -1,0 +1,16 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+I will be sharing the design files one by one. As you work on them, make sure to create responsive layouts that align with our existing theme.
+
+Before starting any design implementation, check our header, footer, and global CSS (especially color variables and spacing rules). These set the design standards, and your work should maintain consistency with them across all components and pages. and make sure we are using same like for colour (text-primary css class) and for making section of div we have to use like this every time because that is our project standard
+
+"<section class="px-4 lg:px-10 2xl:px-20">
+<section class=" py-12 md:py-16 container mx-auto">
+</section>
+</section>
+"
+
+every section need to be like this, and make sure our design is responsive for all screen, DO NOT FORGET TO USE OUR THEME COLOR AND USE THIS CONTAINER MX_AUTO WITH PX THINGS ON EVRY NEW CREATED SECTION WITH ALL THIS DESIGN MUST BE RESPONSIVE.

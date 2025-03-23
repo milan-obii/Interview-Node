@@ -1,11 +1,561 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import CompanyCarousel from '../components/common/carousel/CompanyCarousel.astro';
+import CountdownTimer from '../components/common/timer/CountdownTimer.astro';
+import RegisterButton from '../components/common/buttons/RegisterButton.astro';
+import WelcomePageFeatureCard from '../components/common/cards/WelcomePageFeatureCard.astro';
+import KnowMoreButton from '../components/common/buttons/KnowMoreButton.astro';
+import WelcomePageOurCoursesCard from '../components/common/cards/WelcomePageOurCoursesCard.astro';
+import WelcomeCareerPathCarouselCard from '../components/common/cards/WelcomeCareerPathCarouselCard.astro';
+import BlogCarousel from '../components/common/carousel/BlogCarousel.astro';
 ---
 
+
 <Layout>
-	<Welcome />
+        <!-- todo:----------------- (1) Hero Section ----------------- -->
+        <section class="px-4 lg:px-10 2xl:px-20">
+        <section class=" py-12 md:py-16 container mx-auto">
+            <!-- ! (1) container of first row -->
+          <div class="flex flex-col lg:flex-row gap-12">
+            <!-- ? (1) Left content area -->
+            <div class="lg:w-3/5">
+              <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight mb-4">
+                AI & ML Upskilling + Interview Preparation + Guaranteed <br class="hidden xl:block"> Placement — All in One Platform
+              </h1>
+              <p class="text-lg text-gray-700 mb-8">
+                Get your dream ML job—or get your money back, guaranteed
+              </p>
+
+              <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">Who is this for?</h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div class="flex items-center">
+                    <div class="rounded-full bg-blue-100 p-1 mr-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <span>Backend Engineers</span>
+                  </div>
+
+                  <div class="flex items-center">
+                    <div class="rounded-full bg-blue-100 p-1 mr-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <span>Fullstack Engineers</span>
+                  </div>
+
+                  <div class="flex items-center">
+                    <div class="rounded-full bg-blue-100 p-1 mr-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <span>Frontend Engineers</span>
+                  </div>
+
+                  <div class="flex items-center">
+                    <div class="rounded-full bg-blue-100 p-1 mr-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <span>Test Engineers</span>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <!-- ? (2) Right card widget -->
+            <div class="lg:w-2/5">
+              <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+                <div class="mb-8">
+                  <h3 class="text-xl font-medium text-gray-800 mb-2">Next Workshop in</h3>
+
+                 <CountdownTimer />
+                </div>
+
+                <div class="space-y-4">
+                  <div class="flex items-start space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    <p class="text-gray-700">Discover ML roles tailored to your skills and experience</p>
+                  </div>
+
+                  <div class="flex items-start space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    <p class="text-gray-700">Uncover the top mistakes candidates make</p>
+                  </div>
+
+                  <div class="flex items-start space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    <p class="text-gray-700">Discover how InterviewNode can help you succeed</p>
+                  </div>
+                </div>
+
+                <div class="mt-8 ">
+                  <RegisterButton />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ! (2) Top firms we help you get hired at -->
+          <div class="mt-40">
+            <h2 class="text-2xl font-semibold text-center text-primary mb-10">Top firms we help you get hired at</h2>
+             <CompanyCarousel/>
+          </div>
+        </section>
+        </section>
+        <!-- todo:----------------- (2) Features Section ----------------- -->
+        <section class="px-4 lg:px-10 2xl:px-20 bg-gradient-to-b from-[#0B207C1A] to-[#E5EAFF]">
+          <section class="py-16 md:py-24 container mx-auto">
+            <!-- ! (1) container of timer and cards -->
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-16 gap-8">
+              <!-- ? (1) timer and register button -->
+              <div class="max-w-md lg:max-w-xl">
+                <!-- (1) Title and description -->
+                <div class=" mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-primary  mb-6">
+                      Unlock Your Dream ML Job with Interview Node
+                    </h2>
+                    <p class="text-gray-700  md:text-lg max-w-3xl mx-auto">
+                      Securing the right opportunity requires more than just technical knowledge. Interview Node is your gateway to career success, helping you navigate the interview process with confidence and precision.
+                    </p>
+                  </div>
+                  <!--  (2) timer and register button -->
+                <h3 class="text-2xl font-semibold text-[#414141] mb-4">Next Workshop in</h3>
+                <div class="mb-6">
+                  <CountdownTimer timerId="features-countdown" bgColor="bg-primary" textColor="text-white" labelColor="text-white" />
+                </div>
+                <div class="mt-8">
+                  <RegisterButton />
+                </div>
+              </div>
+              <!-- ? (2) container of cards -->
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 max-w-3xl 2xl:max-w-4xl">
+                <!-- Feature Card 1 -->
+                <WelcomePageFeatureCard title="Interactive Live Classes" description="Join live classes led by industry experts and master the insights, strategies, and best practices you need to ace technical interviews." icon="/src/assets/welcome-page-feature-card-icons/1.svg" />
+
+                <!-- Feature Card 2 -->
+                <WelcomePageFeatureCard title="Personalized 1-1 Coaching" description="Receive personalized one-on-one coaching to sharpen your skills and make quick adjustments for better outcomes." icon="/src/assets/welcome-page-feature-card-icons/2.svg" />
+
+                <!-- Feature Card 3 -->
+                <WelcomePageFeatureCard title="Mock Interviews" description="Tailored mock interviews that mirror real technical interview scenarios, giving you invaluable practice and feedback to excel when it counts." icon="/src/assets/welcome-page-feature-card-icons/3.svg" />
+
+                <!-- Feature Card 4 -->
+               <WelcomePageFeatureCard title="Career Transition Guidance" description="Get dedicated placement support from top staffing agencies specializing in machine learning roles so that you can land your dream job." icon="/src/assets/welcome-page-feature-card-icons/4.svg" />
+              </div>
+            </div>
+          </section>
+        </section>
+        <!-- todo:----------------- (3) Our Courses ----------------- -->
+
+        <section class="px-4 lg:px-10 2xl:px-20 py-16 md:py-24">
+          <section class="container mx-auto">
+            <!-- Section header -->
+            <div class="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
+              <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Our Courses</h2>
+              <p class="text-gray-700">
+                With Interview Node, you don't just prepare—you master the art of ML.
+                Transform your career trajectory and land the job you've always wanted.
+              </p>
+            </div>
+
+            <!-- Course cards container -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
+
+              <!-- Program 1 -->
+              <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                <!-- Course image -->
+                <img
+                src="/src/assets/homepage/typing-1.png"
+                alt="Person taking advanced ML course"
+                class="w-full h-56"
+              />
+
+
+                <!-- Course content -->
+                <div class="p-6">
+                  <h3 class="text-2xl font-semibold text-primary mb-4">Program #1</h3>
+
+                  <!-- Guaranteed badge -->
+                  <div class="bg-[#42965C] text-white text-lg px-4 py-4 rounded-lg flex items-center mb-6">
+                    <div class="mr-2">
+                     <img src="/src/assets/homepage/badge.svg" alt="Guaranteed Placement" class="size-8" />
+                    </div>
+                    <span class="font-medium">Guaranteed Placement</span>
+                  </div>
+
+                  <!-- Features list -->
+                  <div class="space-y-3 mb-6">
+                    <div class="flex justify-between py-2 border-b border-gray-100">
+                      <span class="text-gray-600">Duration:</span>
+                      <span class="font-medium">6 Months</span>
+                    </div>
+
+                    <div class="flex justify-between py-2 border-b border-gray-100">
+                      <span class="text-gray-600">15 mentor sessions/mock interviews</span>
+                      <span class="font-medium"></span>
+                    </div>
+
+                    <div class="flex justify-between py-2 border-b border-gray-100">
+                      <span class="text-gray-600">100% Placement</span>
+                      <span class="font-medium"></span>
+                    </div>
+
+                    <div class="flex justify-between py-2 border-b border-gray-100">
+                      <span class="text-gray-600">Money Back Guarantee</span>
+                      <span class="font-medium"></span>
+                    </div>
+
+                    <div class="flex justify-between py-2 ">
+                      <span class="text-gray-600">100% Personalized curriculum</span>
+                      <span class="font-medium"></span>
+                    </div>
+                  </div>
+
+                  <!-- Know more button -->
+                  <div>
+                    <KnowMoreButton href="/courses/program-1" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Program 2 -->
+              <div class="bg-white rounded-xl  shadow-sm overflow-hidden">
+                <!-- Course image -->
+
+                    <img
+                      src="/src/assets/homepage/typing-2.png"
+                      alt="Person taking advanced ML course"
+                      class="w-full h-56"
+                    />
+
+
+                <!-- Course content -->
+                <div class="p-6">
+                  <h3 class="text-2xl font-semibold text-primary mb-4">Program #2</h3>
+
+                  <!-- Guaranteed badge -->
+                  <div class="bg-[#42965C] text-white text-lg px-4 py-4 rounded-lg flex items-center mb-6">
+                    <div class="mr-2">
+                     <img src="/src/assets/homepage/badge.svg" alt="Guaranteed Placement" class="size-8" />
+                    </div>
+                    <span class="font-medium">Guaranteed Placement</span>
+                  </div>
+
+                  <!-- Features list -->
+                  <div class="space-y-3 mb-6">
+                    <div class="flex justify-between py-2 border-b border-gray-100">
+                      <span class="text-gray-600">Duration:</span>
+                      <span class="font-medium">6 Months</span>
+                    </div>
+
+                    <div class="flex justify-between py-2 border-b border-gray-100">
+                      <span class="text-gray-600">15 mentor sessions/mock interviews</span>
+                      <span class="font-medium"></span>
+                    </div>
+
+                    <div class="flex justify-between py-2 border-b border-gray-100">
+                      <span class="text-gray-600">100% Placement</span>
+                      <span class="font-medium"></span>
+                    </div>
+
+                    <div class="flex justify-between py-2 border-b border-gray-100">
+                      <span class="text-gray-600">Money Back Guarantee</span>
+                      <span class="font-medium"></span>
+                    </div>
+
+                    <div class="flex justify-between py-2 ">
+                      <span class="text-gray-600">100% Personalized curriculum</span>
+                      <span class="font-medium"></span>
+                    </div>
+                  </div>
+
+                  <!-- Know more button -->
+                  <div>
+                    <KnowMoreButton href="/courses/program-2" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Why Interview Node section -->
+            <div class="mt-24 md:mt-32">
+              <h2 class="text-3xl md:text-4xl font-bold text-primary text-center mb-12 md:mb-16">Why Interview Node?</h2>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1 -->
+                <WelcomePageOurCoursesCard title="Selective Focused Cohorts" description="We only accept the most dedicated candidates through a focused entrance test, ensuring every cohort member shares the same drive and ambition." icon="/src/assets/welcome-page-feature-card-icons/5.svg" />
+
+                <!-- Feature 2 -->
+                <WelcomePageOurCoursesCard title="Targeted Curriculum" description="Our curriculum, led by FAANG instructors, is laser-focused on ML interview preparation, with no unnecessary distractions or dilution." icon="/src/assets/welcome-page-feature-card-icons/6.svg" />
+
+                <!-- Feature 3 -->
+               <WelcomePageOurCoursesCard title="Mock Interviews & Feedback" description="Built-in mock interviews provide ample practice and personalized feedback, so you're fully prepared for the real thing." icon="/src/assets/welcome-page-feature-card-icons/3.svg" />
+
+                <!-- Feature 4 -->
+                <WelcomePageOurCoursesCard title="Job Placement Support" description="We partner with top placement companies to match you with the right opportunities, helping you land your dream ML job." icon="/src/assets/welcome-page-feature-card-icons/4.svg" />
+
+
+              </div>
+            </div>
+          </section>
+        </section>
+        <!-- todo:----------------- (4) Careers Paths ----------------- -->
+        <section class="px-4 lg:px-10 2xl:px-20 bg-[#0B207C] text-white">
+          <section class="py-16 md:py-24 container mx-auto">
+            <div class="flex flex-col lg:flex-row gap-12">
+              <!-- Left content -->
+              <div class="lg:w-1/3">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Career Paths</h2>
+                <p class="text-lg opacity-90 mb-10">
+                  At Interview Node, we guide you through the career exploration process, helping you understand different roles, required skill sets, and potential growth trajectories.
+                </p>
+
+                <div class="mb-8">
+                  <h3 class="text-2xl font-semibold mb-4">Next Workshop in</h3>
+                  <CountdownTimer timerId="career-paths-countdown" bgColor="bg-white" textColor="text-primary" labelColor="text-gray-500" />
+                </div>
+
+                <div class="mt-8">
+                  <RegisterButton textColour="text-primary" backgroundColour="bg-white" svgBackgroundColour="bg-primary" svgTextColour="text-white" />
+                </div>
+              </div>
+
+              <!-- Right carousel -->
+              <div class="lg:w-2/3">
+                <div class="career-paths-carousel swiper">
+                  <div class="swiper-wrapper">
+                    <!-- Slide 1: Machine Learning Engineer -->
+                    <div class="swiper-slide">
+                     <WelcomeCareerPathCarouselCard title="Machine Learning Engineer" description="ML Engineers are among the highest-paid roles in tech. With the ML market in the US projected to grow at an incredible 24.5% annually through 2030, there's never been a better time to level up your skills and land your dream job." image="/src/assets/homepage/typing-1.png" />
+                    </div>
+
+                    <!-- Slide 2: Data Scientist -->
+                    <div class="swiper-slide">
+                      <WelcomeCareerPathCarouselCard title="Data Scientist" description="Data Engineers are the backbone of modern tech, powering everything from AI to analytics. With demand soaring and companies racing to build scalable data systems, it's one of the fastest-growing and best-paid roles in the US." image="/src/assets/homepage/typing-2.png" />
+                    </div>
+
+                    <!-- Slide 3: AI Product Manager -->
+                    <div class="swiper-slide">
+                      <WelcomeCareerPathCarouselCard title="AI Product Manager" description="AI Product Managers are the bridge between tech and business, driving innovation and shaping the future of AI. With companies like Google, Amazon, and Microsoft leading the charge, it's a role that's in high demand and offers significant growth potential." image="/src/assets/homepage/typing-1.png" />
+                    </div>
+                  </div>
+
+                  <!-- Pagination dots -->
+                  <div class="swiper-pagination"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+        <script is:inline>
+          document.addEventListener('DOMContentLoaded', function() {
+            const swiper = new Swiper('.career-paths-carousel', {
+              slidesPerView: 1,
+              spaceBetween: 30,
+              loop: true,
+              autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+              },
+              pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+              },
+              breakpoints: {
+                // When screen width is >= 768px
+                768: {
+                  slidesPerView: 1.8,
+                  centeredSlides: true,
+                },
+              }
+            });
+          });
+        </script>
+        <style>
+          .career-paths-carousel {
+            padding-bottom: 50px;
+          }
+
+          .swiper-pagination {
+            bottom: 0 !important;
+          }
+
+          .swiper-pagination-bullet {
+            background: rgba(255, 255, 255, 0.5);
+          }
+
+          .swiper-pagination-bullet-active {
+            background: white;
+          }
+
+          /* Add gradient overlay to highlight active slide */
+          .swiper-slide-active {
+            z-index: 1;
+          }
+
+          /* Make sure the slides have same height */
+          .swiper-slide {
+            height: auto;
+          }
+        </style>
+        <!-- todo: (5) start your journey -->
+        <section class="px-4 lg:px-10 2xl:px-20 py-16 md:py-24">
+          <section class="container mx-auto">
+            <!-- Section title -->
+            <h2 class="text-3xl md:text-4xl font-bold text-primary text-center mb-16">
+              Start Your Journey
+            </h2>
+
+            <!-- Journey steps -->
+            <div class="relative  mx-auto">
+              <!-- Process steps -->
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-14 mb-20">
+                <!-- Step 1 -->
+                <div class="bg-white rounded-3xl shadow-sm p-8 relative">
+                  <!-- Circle with icon -->
+                  <div class="flex justify-center mb-6">
+                    <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center">
+                      <img src="/src/assets/homepage/start-your-journey/1.svg" alt="Book icon" class="w-10 h-10" />
+                    </div>
+                  </div>
+
+                  <!-- Title and description -->
+                  <h3 class="text-xl font-semibold text-center mb-3">Book a Cohort</h3>
+                  <p class="text-gray-700 text-center">
+                    Pay 50% and secure your spot.
+                  </p>
+
+                  <!-- Arrow (visible on desktop) -->
+                  <div class="hidden md:block absolute -right-14 top-1/2 transform -translate-y-1/2 z-10">
+                    <svg width="56" height="42" viewBox="0 0 56 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.998517 16.5137C5.88868 9.61361 14.5533 5.26959 22.9268 6.4633C31.3004 7.65688 38.7018 14.8873 39.1849 23.3298C39.668 31.7723 32.3581 40.142 23.9015 39.9727C21.1794 39.9182 18.3019 38.9323 16.7562 36.6916C15.411 34.7416 15.2932 32.1894 15.6242 29.8437C16.7736 21.6996 22.7154 14.8494 29.7838 10.6412C35.4997 7.23838 41.9221 5.30637 48.42 3.76088" stroke="#0B207C" stroke-opacity="0.9" stroke-miterlimit="10" stroke-dasharray="2 2"/>
+                        <path d="M53.0383 2.71453C51.0528 4.0201 48.6758 6.01503 47.3414 7.85526L47.8188 3.9172L45.666 0.585938C47.6712 1.65656 50.6817 2.41013 53.0383 2.71453Z" fill="#0B207C" fill-opacity="0.9"/>
+                        <path d="M47.0058 1.73795C48.4805 2.307 50.176 2.7416 51.7241 3.0175C50.4529 3.94333 49.1186 5.07618 48.0417 6.2333L48.3151 3.97737L48.3369 3.79777L48.2387 3.64582L47.0058 1.73795Z" stroke="#0B207C" stroke-opacity="0.9"/>
+                        </svg>
+                  </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white rounded-3xl shadow-sm p-8 relative">
+                  <!-- Circle with icon -->
+                  <div class="flex justify-center mb-6">
+                    <div class="w-20 h-20 rounded-full bg-orange-100 flex items-center justify-center">
+                      <img src="/src/assets/homepage/start-your-journey/2.svg" alt="Instructor icon" class="w-10 h-10" />
+                    </div>
+                  </div>
+
+                  <!-- Title and description -->
+                  <h3 class="text-xl font-semibold text-center mb-3">Meet an Instructor</h3>
+                  <p class="text-gray-700 text-center">
+                    Get your questions answered, and take a quick practice test
+                  </p>
+
+                  <!-- Arrow (visible on desktop) -->
+                  <div class="hidden lg:block absolute -right-14 top-1/2 transform -translate-y-1/2 z-10">
+                    <svg width="56" height="42" viewBox="0 0 56 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.998517 16.5137C5.88868 9.61361 14.5533 5.26959 22.9268 6.4633C31.3004 7.65688 38.7018 14.8873 39.1849 23.3298C39.668 31.7723 32.3581 40.142 23.9015 39.9727C21.1794 39.9182 18.3019 38.9323 16.7562 36.6916C15.411 34.7416 15.2932 32.1894 15.6242 29.8437C16.7736 21.6996 22.7154 14.8494 29.7838 10.6412C35.4997 7.23838 41.9221 5.30637 48.42 3.76088" stroke="#0B207C" stroke-opacity="0.9" stroke-miterlimit="10" stroke-dasharray="2 2"/>
+                        <path d="M53.0383 2.71453C51.0528 4.0201 48.6758 6.01503 47.3414 7.85526L47.8188 3.9172L45.666 0.585938C47.6712 1.65656 50.6817 2.41013 53.0383 2.71453Z" fill="#0B207C" fill-opacity="0.9"/>
+                        <path d="M47.0058 1.73795C48.4805 2.307 50.176 2.7416 51.7241 3.0175C50.4529 3.94333 49.1186 5.07618 48.0417 6.2333L48.3151 3.97737L48.3369 3.79777L48.2387 3.64582L47.0058 1.73795Z" stroke="#0B207C" stroke-opacity="0.9"/>
+                        </svg>
+                  </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-white rounded-3xl shadow-sm p-8 relative">
+                  <!-- Circle with icon -->
+                  <div class="flex justify-center mb-6">
+                    <div class="w-20 h-20 rounded-full bg-orange-100 flex items-center justify-center">
+                      <img src="/src/assets/homepage/start-your-journey/3.svg" alt="Learning icon" class="w-10 h-10" />
+                    </div>
+                  </div>
+
+                  <!-- Title and description -->
+                  <h3 class="text-xl font-semibold text-center mb-3">Start Learning</h3>
+                  <p class="text-gray-700 text-center">
+                    After confirming it's a great fit, join your cohort and start preparing
+                  </p>
+
+                  <!-- Arrow (visible on desktop) -->
+                  <div class="hidden md:block absolute -right-14 top-1/2 transform -translate-y-1/2  z-10">
+                    <svg width="56" height="42" viewBox="0 0 56 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.998517 16.5137C5.88868 9.61361 14.5533 5.26959 22.9268 6.4633C31.3004 7.65688 38.7018 14.8873 39.1849 23.3298C39.668 31.7723 32.3581 40.142 23.9015 39.9727C21.1794 39.9182 18.3019 38.9323 16.7562 36.6916C15.411 34.7416 15.2932 32.1894 15.6242 29.8437C16.7736 21.6996 22.7154 14.8494 29.7838 10.6412C35.4997 7.23838 41.9221 5.30637 48.42 3.76088" stroke="#0B207C" stroke-opacity="0.9" stroke-miterlimit="10" stroke-dasharray="2 2"/>
+                        <path d="M53.0383 2.71453C51.0528 4.0201 48.6758 6.01503 47.3414 7.85526L47.8188 3.9172L45.666 0.585938C47.6712 1.65656 50.6817 2.41013 53.0383 2.71453Z" fill="#0B207C" fill-opacity="0.9"/>
+                        <path d="M47.0058 1.73795C48.4805 2.307 50.176 2.7416 51.7241 3.0175C50.4529 3.94333 49.1186 5.07618 48.0417 6.2333L48.3151 3.97737L48.3369 3.79777L48.2387 3.64582L47.0058 1.73795Z" stroke="#0B207C" stroke-opacity="0.9"/>
+                        </svg>
+                  </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-white rounded-3xl shadow-sm p-8 relative">
+                  <!-- Circle with icon -->
+                  <div class="flex justify-center mb-6">
+                    <div class="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center">
+                      <img src="/src/assets/homepage/start-your-journey/4.svg" alt="Job icon" class="w-10 h-10" />
+                    </div>
+                  </div>
+
+                  <!-- Title and description -->
+                  <h3 class="text-xl font-semibold text-center mb-3">Land Your ML Job</h3>
+                  <p class="text-gray-700 text-center">
+                    Pay the rest 50% only after you've secured your job offer.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Registration bar -->
+              <div class="bg-gradient-to-r from-[#0B207C] to-[#637CF4] text-white rounded-xl py-8 px-6 md:px-12 lg:w-[85%] lg:mx-auto">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                  <h3 class="text-2xl font-semibold">Next Workshop in</h3>
+
+                  <div class="w-full md:w-auto">
+                    <CountdownTimer
+                      timerId="journey-countdown"
+                      bgColor="bg-white"
+                      textColor="text-primary"
+                      labelColor="text-gray-500"
+                    />
+                  </div>
+
+                  <RegisterButton
+                    textColour="text-primary"
+                    backgroundColour="bg-white"
+                    svgBackgroundColour="bg-primary"
+                    svgTextColour="text-white"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+        <!-- todo: (6) blogs -->
+        <section class="px-4 lg:px-10 2xl:px-20 py-16 md:py-24 ">
+          <section class="container mx-auto">
+            <!-- Section title -->
+            <h2 class="text-3xl md:text-4xl font-bold text-primary text-center mb-6">
+              Insights from our team
+            </h2>
+
+            <p class="text-center text-gray-700 max-w-4xl mx-auto mb-16">
+              The Insights section at Interview Node brings you expertly crafted blogs covering interview preparation,
+              career growth, technical deep dives, and industry best practices.
+            </p>
+            <!-- Blog posts carousel -->
+            <BlogCarousel />
+          </section>
+
+
+        </section>
+
 </Layout>

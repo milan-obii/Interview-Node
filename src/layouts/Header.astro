@@ -1,0 +1,58 @@
+---
+import RegisterButton from '../components/common/buttons/RegisterButton.astro';
+---
+<header class="bg-white fixed left-0 right-0 top-0 px-4 2xl:px-20 lg:px-10 z-50  ">
+<section class="container mx-auto  bg-white flex justify-between items-center  py-5 ">
+  <div class="logo">
+    <a href="/">
+      <img src="/src/assets/logo.svg" alt="Interview Node Logo" class="w-[240px] h-[30px]">
+    </a>
+  </div>
+
+  <nav class="hidden md:flex items-center gap-10 ">
+    <a href="#" class=" hover:text-[#0B207C] ">Courses</a>
+    <a href="/blogs" class="hover:text-[#0B207C] ">Blog</a>
+   <RegisterButton />
+</nav>
+
+  <button class="md:hidden text-[#0D1942]" id="mobile-menu-button">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </button>
+</section>
+</header>
+
+<div class="mobile-menu -translate-y-full fixed duration-300 inset-0 bg-white z-50 md:hidden" id="mobile-menu">
+  <div class="p-4 flex justify-end">
+    <button id="close-menu-button">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+  <nav class="flex flex-col items-center gap-6 p-8">
+    <a href="#" class="text-xl text-[#0D1942] hover:text-blue-700 transition-colors">Courses</a>
+    <a href="/blogs" class="text-xl text-[#0D1942] hover:text-blue-700 transition-colors">Blog</a>
+    <RegisterButton />
+  </nav>
+</div>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const closeMenuButton = document.getElementById('close-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (mobileMenuButton && closeMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.add('translate-y-0');
+      mobileMenu.classList.remove('-translate-y-full');
+    });
+
+    closeMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-y-full');
+      mobileMenu.classList.remove('translate-y-0');
+    });
+  }
+</script>

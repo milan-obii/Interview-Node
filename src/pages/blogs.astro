@@ -1,0 +1,351 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CountdownTimer from '../components/common/timer/CountdownTimer.astro';
+import RegisterButton from '../components/common/buttons/RegisterButton.astro';
+
+const blogPosts = [
+  {
+    id: 1,
+    title: "Ace Your Anthropic ML Interview: Top 25 Questions and Expert Tips",
+    excerpt: "Preparing for a machine learning (ML) interview at Anthropic? You're in the right place. Anthropic, the AI safety company...",
+    author: "Santosh Rout",
+    readTime: "09 min read",
+    date: "01st March 2025",
+    image: "/src/assets/blogs/team-1.png",
+    category: "Category 1"
+  },
+  {
+    id: 2,
+    title: "Ace Your Anthropic ML Interview: Top 25 Questions and Expert Tips",
+    excerpt: "Preparing for a machine learning (ML) interview at Anthropic? You're in the right place. Anthropic, the AI safety company...",
+    author: "Santosh Rout",
+    readTime: "09 min read",
+    date: "01st March 2025",
+    image: "/src/assets/blogs/team-3.png",
+    category: "Category 2"
+  },
+  {
+    id: 3,
+    title: "Ace Your Anthropic ML Interview: Top 25 Questions and Expert Tips",
+    excerpt: "Preparing for a machine learning (ML) interview at Anthropic? You're in the right place. Anthropic, the AI safety company...",
+    author: "Santosh Rout",
+    readTime: "09 min read",
+    date: "01st March 2025",
+    image: "/src/assets/blogs/team-1.png",
+    category: "Category 1"
+  },
+  {
+    id: 4,
+    title: "Ace Your Anthropic ML Interview: Top 25 Questions and Expert Tips",
+    excerpt: "Preparing for a machine learning (ML) interview at Anthropic? You're in the right place. Anthropic, the AI safety company...",
+    author: "Santosh Rout",
+    readTime: "09 min read",
+    date: "01st March 2025",
+    image: "/src/assets/blogs/team-2.png",
+    category: "Category 2"
+  },
+  {
+    id: 5,
+    title: "Ace Your Anthropic ML Interview: Top 25 Questions and Expert Tips",
+    excerpt: "Preparing for a machine learning (ML) interview at Anthropic? You're in the right place. Anthropic, the AI safety company...",
+    author: "Santosh Rout",
+    readTime: "09 min read",
+    date: "01st March 2025",
+    image: "/src/assets/blogs/team-3.png",
+    category: "Category 1"
+  },
+  {
+    id: 6,
+    title: "Ace Your Anthropic ML Interview: Top 25 Questions and Expert Tips",
+    excerpt: "Preparing for a machine learning (ML) interview at Anthropic? You're in the right place. Anthropic, the AI safety company...",
+    author: "Santosh Rout",
+    readTime: "09 min read",
+    date: "01st March 2025",
+    image: "/src/assets/blogs/team-1.png",
+    category: "Category 2"
+  }
+];
+
+// Get unique categories
+const categories = ["All Category", ...new Set(blogPosts.map(post => post.category))];
+
+---
+
+<Layout>
+<!-- todo:----------------- (1) Hero Section ----------------- -->
+<section class="bg-gradient-to-r from-[#0B207C] to-[#637CF4] text-white py-20 md:py-32">
+    <div class="container mx-auto px-4 lg:px-10 2xl:px-20">
+      <div class="flex flex-col lg:flex-row gap-12 items-center">
+        <!-- Left Content Area -->
+        <div class="lg:w-1/2 space-y-8">
+          <div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                Insights from our <br>
+              <span class="text-white">Team blogs</span>
+            </h1>
+          </div>
+
+          <!-- Who is this for? Card -->
+          <div class="bg-[#0B207C]/30 rounded-2xl p-6 border border-blue-400/20">
+
+                At Interview Node, we bring you expert-driven insights, industry trends, and actionable strategies to help you excel in your interviews and career journey.
+
+          </div>
+        </div>
+
+        <!-- Right Content Area - Countdown and Register -->
+        <div class="lg:w-1/2 flex justify-center">
+          <div class="bg-white text-gray-800 rounded-2xl overflow-hidden shadow-xl w-full max-w-md">
+            <div class="p-8">
+              <h2 class="text-2xl font-semibold text-gray-800 mb-6">Next Workshop in</h2>
+
+              <!-- Countdown Timer - Using dark blue for timer blocks -->
+              <div class="mb-8">
+                <CountdownTimer
+                  timerId="ml-program-countdown"
+                  bgColor="bg-primary"
+                  textColor="text-white"
+                  labelColor="text-white"
+                />
+              </div>
+
+              <!-- Register Button -->
+              <RegisterButton
+                textColour="text-white"
+                backgroundColour="bg-primary"
+                svgBackgroundColour="bg-white"
+                svgTextColour="text-primary"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<section class="px-4 lg:px-10 2xl:px-20 py-16 md:py-24 ">
+  <div class="container mx-auto lg:flex lg:gap-10">
+    <!-- Category filters -->
+    <div class="mb-12">
+      <div class="flex flex-wrap gap-4">
+        {categories.map((category, index) => (
+          <button
+            class={`py-3 px-6  xl:w-full cursor-pointer rounded-xl  transition-colors ${index === 0 ? 'bg-[#0B207C1A] text-primary font-medium' : 'bg-white text-gray-700  hover:bg-gray-100'}`}
+            data-category={category === "All Category" ? "all" : category}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Blog posts grid -->
+    <div class="blog-grid grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-y-0">
+      {blogPosts.map(post => (
+        <div class="blog-card " data-category={post.category}>
+          <a href={`/blog/${post.id}`} >
+            <div class="aspect-video rounded-2xl">
+              <img src={post.image} alt={post.title} class="w-full border border-gray-200 h-full object-cover rounded-4xl" />
+            </div>
+            <div class="p-6 bg-white rounded-3xl border border-gray-200 w-[95%] lg:w-[90%] mx-auto relative z-10 -translate-y-1/3">
+              <h3 class="text-xl font-bold text-gray-900 mb-2">
+                {post.title}
+              </h3>
+
+              <div class="flex items-center mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-primary font-medium">{post.author}</span>
+              </div>
+
+              <p class="text-gray-700 mb-4 line-clamp-2">
+                {post.excerpt}
+              </p>
+
+              <!-- Read time and date -->
+              <div class="flex items-center justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {post.readTime}
+                </div>
+                <div class="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  {post.date}
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      const categoryButtons = document.querySelectorAll('[data-category]');
+      const blogCards = document.querySelectorAll('.blog-card');
+
+      // Add click event listeners to category buttons
+      categoryButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Remove active class from all buttons
+          categoryButtons.forEach(btn => {
+            btn.classList.remove('bg-[#0B207C1A]', 'text-primary', 'font-medium');
+            btn.classList.add('bg-white', 'text-gray-700');
+          });
+
+          // Add active class to clicked button
+          this.classList.remove('bg-white', 'text-gray-700');
+          this.classList.add('bg-[#0B207C1A]', 'text-primary', 'font-medium');
+
+          const selectedCategory = this.getAttribute('data-category');
+
+          // Show/hide blog cards based on category
+          blogCards.forEach(card => {
+            if (selectedCategory === 'all' || card.getAttribute('data-category') === selectedCategory) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+</section>
+     <!-- todo: (5) start your journey -->
+     <section class="px-4 lg:px-10 2xl:px-20 py-16 md:py-24">
+        <section class="container mx-auto">
+          <!-- Section title -->
+          <h2 class="text-3xl md:text-4xl font-bold text-primary text-center mb-16">
+            Start Your Journey
+          </h2>
+
+          <!-- Journey steps -->
+          <div class="relative  mx-auto">
+            <!-- Process steps -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-14 mb-20">
+              <!-- Step 1 -->
+              <div class="bg-white rounded-3xl shadow-sm p-8 relative">
+                <!-- Circle with icon -->
+                <div class="flex justify-center mb-6">
+                  <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center">
+                    <img src="/src/assets/homepage/start-your-journey/1.svg" alt="Book icon" class="w-10 h-10" />
+                  </div>
+                </div>
+
+                <!-- Title and description -->
+                <h3 class="text-xl font-semibold text-center mb-3">Book a Cohort</h3>
+                <p class="text-gray-700 text-center">
+                  Pay 50% and secure your spot.
+                </p>
+
+                <!-- Arrow (visible on desktop) -->
+                <div class="hidden md:block absolute -right-14 top-1/2 transform -translate-y-1/2 z-10">
+                  <svg width="56" height="42" viewBox="0 0 56 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0.998517 16.5137C5.88868 9.61361 14.5533 5.26959 22.9268 6.4633C31.3004 7.65688 38.7018 14.8873 39.1849 23.3298C39.668 31.7723 32.3581 40.142 23.9015 39.9727C21.1794 39.9182 18.3019 38.9323 16.7562 36.6916C15.411 34.7416 15.2932 32.1894 15.6242 29.8437C16.7736 21.6996 22.7154 14.8494 29.7838 10.6412C35.4997 7.23838 41.9221 5.30637 48.42 3.76088" stroke="#0B207C" stroke-opacity="0.9" stroke-miterlimit="10" stroke-dasharray="2 2"/>
+                      <path d="M53.0383 2.71453C51.0528 4.0201 48.6758 6.01503 47.3414 7.85526L47.8188 3.9172L45.666 0.585938C47.6712 1.65656 50.6817 2.41013 53.0383 2.71453Z" fill="#0B207C" fill-opacity="0.9"/>
+                      <path d="M47.0058 1.73795C48.4805 2.307 50.176 2.7416 51.7241 3.0175C50.4529 3.94333 49.1186 5.07618 48.0417 6.2333L48.3151 3.97737L48.3369 3.79777L48.2387 3.64582L47.0058 1.73795Z" stroke="#0B207C" stroke-opacity="0.9"/>
+                      </svg>
+                </div>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="bg-white rounded-3xl shadow-sm p-8 relative">
+                <!-- Circle with icon -->
+                <div class="flex justify-center mb-6">
+                  <div class="w-20 h-20 rounded-full bg-orange-100 flex items-center justify-center">
+                    <img src="/src/assets/homepage/start-your-journey/2.svg" alt="Instructor icon" class="w-10 h-10" />
+                  </div>
+                </div>
+
+                <!-- Title and description -->
+                <h3 class="text-xl font-semibold text-center mb-3">Meet an Instructor</h3>
+                <p class="text-gray-700 text-center">
+                  Get your questions answered, and take a quick practice test
+                </p>
+
+                <!-- Arrow (visible on desktop) -->
+                <div class="hidden lg:block absolute -right-14 top-1/2 transform -translate-y-1/2 z-10">
+                  <svg width="56" height="42" viewBox="0 0 56 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0.998517 16.5137C5.88868 9.61361 14.5533 5.26959 22.9268 6.4633C31.3004 7.65688 38.7018 14.8873 39.1849 23.3298C39.668 31.7723 32.3581 40.142 23.9015 39.9727C21.1794 39.9182 18.3019 38.9323 16.7562 36.6916C15.411 34.7416 15.2932 32.1894 15.6242 29.8437C16.7736 21.6996 22.7154 14.8494 29.7838 10.6412C35.4997 7.23838 41.9221 5.30637 48.42 3.76088" stroke="#0B207C" stroke-opacity="0.9" stroke-miterlimit="10" stroke-dasharray="2 2"/>
+                      <path d="M53.0383 2.71453C51.0528 4.0201 48.6758 6.01503 47.3414 7.85526L47.8188 3.9172L45.666 0.585938C47.6712 1.65656 50.6817 2.41013 53.0383 2.71453Z" fill="#0B207C" fill-opacity="0.9"/>
+                      <path d="M47.0058 1.73795C48.4805 2.307 50.176 2.7416 51.7241 3.0175C50.4529 3.94333 49.1186 5.07618 48.0417 6.2333L48.3151 3.97737L48.3369 3.79777L48.2387 3.64582L47.0058 1.73795Z" stroke="#0B207C" stroke-opacity="0.9"/>
+                      </svg>
+                </div>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="bg-white rounded-3xl shadow-sm p-8 relative">
+                <!-- Circle with icon -->
+                <div class="flex justify-center mb-6">
+                  <div class="w-20 h-20 rounded-full bg-orange-100 flex items-center justify-center">
+                    <img src="/src/assets/homepage/start-your-journey/3.svg" alt="Learning icon" class="w-10 h-10" />
+                  </div>
+                </div>
+
+                <!-- Title and description -->
+                <h3 class="text-xl font-semibold text-center mb-3">Start Learning</h3>
+                <p class="text-gray-700 text-center">
+                  After confirming it's a great fit, join your cohort and start preparing
+                </p>
+
+                <!-- Arrow (visible on desktop) -->
+                <div class="hidden md:block absolute -right-14 top-1/2 transform -translate-y-1/2  z-10">
+                  <svg width="56" height="42" viewBox="0 0 56 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0.998517 16.5137C5.88868 9.61361 14.5533 5.26959 22.9268 6.4633C31.3004 7.65688 38.7018 14.8873 39.1849 23.3298C39.668 31.7723 32.3581 40.142 23.9015 39.9727C21.1794 39.9182 18.3019 38.9323 16.7562 36.6916C15.411 34.7416 15.2932 32.1894 15.6242 29.8437C16.7736 21.6996 22.7154 14.8494 29.7838 10.6412C35.4997 7.23838 41.9221 5.30637 48.42 3.76088" stroke="#0B207C" stroke-opacity="0.9" stroke-miterlimit="10" stroke-dasharray="2 2"/>
+                      <path d="M53.0383 2.71453C51.0528 4.0201 48.6758 6.01503 47.3414 7.85526L47.8188 3.9172L45.666 0.585938C47.6712 1.65656 50.6817 2.41013 53.0383 2.71453Z" fill="#0B207C" fill-opacity="0.9"/>
+                      <path d="M47.0058 1.73795C48.4805 2.307 50.176 2.7416 51.7241 3.0175C50.4529 3.94333 49.1186 5.07618 48.0417 6.2333L48.3151 3.97737L48.3369 3.79777L48.2387 3.64582L47.0058 1.73795Z" stroke="#0B207C" stroke-opacity="0.9"/>
+                      </svg>
+                </div>
+              </div>
+
+              <!-- Step 4 -->
+              <div class="bg-white rounded-3xl shadow-sm p-8 relative">
+                <!-- Circle with icon -->
+                <div class="flex justify-center mb-6">
+                  <div class="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center">
+                    <img src="/src/assets/homepage/start-your-journey/4.svg" alt="Job icon" class="w-10 h-10" />
+                  </div>
+                </div>
+
+                <!-- Title and description -->
+                <h3 class="text-xl font-semibold text-center mb-3">Land Your ML Job</h3>
+                <p class="text-gray-700 text-center">
+                  Pay the rest 50% only after you've secured your job offer.
+                </p>
+              </div>
+            </div>
+
+            <!-- Registration bar -->
+            <div class="bg-gradient-to-r from-[#0B207C] to-[#637CF4] text-white rounded-3xl py-10 px-6 md:px-12 lg:w-[85%] lg:mx-auto">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                  <h3 class="text-2xl font-semibold">Next Workshop in</h3>
+
+                  <div class="w-full md:w-auto">
+                    <CountdownTimer
+                      timerId="journey-countdown"
+                      bgColor="bg-white"
+                      textColor="text-primary"
+                      labelColor="text-gray-500"
+                    />
+                  </div>
+
+                  <RegisterButton
+                    textColour="text-primary"
+                    backgroundColour="bg-white"
+                    svgBackgroundColour="bg-primary"
+                    svgTextColour="text-white"
+                  />
+                </div>
+              </div>
+          </div>
+        </section>
+      </section>
+</Layout>
