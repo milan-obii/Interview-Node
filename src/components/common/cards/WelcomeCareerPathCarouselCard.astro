@@ -1,14 +1,14 @@
 ---
 const { title, description, image } = Astro.props;
 ---
-<div class="bg-white rounded-lg overflow-hidden h-full">
+<div class="">
     <img
       src={image}
       alt="Machine Learning Engineer"
-      class="w-full h-56 object-cover"
+      class=" h-56 w-full -mb-3 rounded-t-lg"
     />
-    <div class="p-6 text-black">
-      <h3 class="text-2xl font-semibold text-primary mb-4">{title}</h3>
+    <div class="p-6 w-[95%] mx-auto text-black bg-white rounded-b-lg">
+      <h3 class="text-2xl font-semibold text-primary mb-4 ">{title}</h3>
       <p class="text-gray-700">
         {description}
       </p>

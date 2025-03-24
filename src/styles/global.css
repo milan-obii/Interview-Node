@@ -11,5 +11,8 @@ html, body {
     .bg-primary {
         background-color: #0B207C;
     }
+   .container{
+    @apply xl:px-20 2xl:px-32;
+   }
 
 }
