@@ -176,17 +176,17 @@ import BlogCarousel from '../components/common/carousel/BlogCarousel.astro';
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
 
               <!-- Program 1 -->
-              <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+              <div class="">
                 <!-- Course image -->
                 <img
                 src="/src/assets/homepage/typing-1.png"
                 alt="Person taking advanced ML course"
-                class="w-full h-56"
+                class="w-full h-58 2xl:h-66"
               />
 
 
                 <!-- Course content -->
-                <div class="p-6">
+                <div class="p-6 bg-white rounded-b-xl  shadow-sm w-[95%] -mt-3 mx-auto">
                   <h3 class="text-2xl font-semibold text-primary mb-4">Program #1</h3>
 
                   <!-- Guaranteed badge -->
@@ -233,18 +233,18 @@ import BlogCarousel from '../components/common/carousel/BlogCarousel.astro';
               </div>
 
               <!-- Program 2 -->
-              <div class="bg-white rounded-xl  shadow-sm overflow-hidden">
+              <div class="">
                 <!-- Course image -->
 
-                    <img
-                      src="/src/assets/homepage/typing-2.png"
-                      alt="Person taking advanced ML course"
-                      class="w-full h-56"
-                    />
+                <img
+                src="/src/assets/homepage/typing-2.png"
+                alt="Person taking advanced ML course"
+                class="w-full h-58 2xl:h-66"
+              />
 
 
                 <!-- Course content -->
-                <div class="p-6">
+                <div class="p-6 bg-white rounded-b-xl  shadow-sm w-[95%] -mt-3 mx-auto">
                   <h3 class="text-2xl font-semibold text-primary mb-4">Program #2</h3>
 
                   <!-- Guaranteed badge -->
@@ -314,7 +314,7 @@ import BlogCarousel from '../components/common/carousel/BlogCarousel.astro';
           </section>
         </section>
         <!-- todo:----------------- (4) Careers Paths ----------------- -->
-        <section class="px-4 lg:px-10 2xl:px-20 bg-[#0B207C] text-white">
+        <section class="px-4 lg:px-10 2xl:px-20 bg-gradient-to-r from-[#0B207C] to-[#637CF4] text-white">
           <section class="py-16 md:py-24 container mx-auto">
             <div class="flex flex-col lg:flex-row gap-12">
               <!-- Left content -->
@@ -330,7 +330,7 @@ import BlogCarousel from '../components/common/carousel/BlogCarousel.astro';
                 </div>
 
                 <div class="mt-8">
-                  <RegisterButton textColour="text-primary" backgroundColour="bg-white" svgBackgroundColour="bg-primary" svgTextColour="text-white" />
+                  <RegisterButton textColour="text-primary" backgroundColour="bg-white" svgBackgroundColour="bg-primary" svgTextColour="text-white"  />
                 </div>
               </div>
 
@@ -345,12 +345,7 @@ import BlogCarousel from '../components/common/carousel/BlogCarousel.astro';
 
                     <!-- Slide 2: Data Scientist -->
                     <div class="swiper-slide">
-                      <WelcomeCareerPathCarouselCard title="Data Scientist" description="Data Engineers are the backbone of modern tech, powering everything from AI to analytics. With demand soaring and companies racing to build scalable data systems, it's one of the fastest-growing and best-paid roles in the US." image="/src/assets/homepage/typing-2.png" />
-                    </div>
-
-                    <!-- Slide 3: AI Product Manager -->
-                    <div class="swiper-slide">
-                      <WelcomeCareerPathCarouselCard title="AI Product Manager" description="AI Product Managers are the bridge between tech and business, driving innovation and shaping the future of AI. With companies like Google, Amazon, and Microsoft leading the charge, it's a role that's in high demand and offers significant growth potential." image="/src/assets/homepage/typing-1.png" />
+                      <WelcomeCareerPathCarouselCard title="Data Scientist" description="ML Engineers are among the highest-paid roles in tech. With the ML market in the US projected to grow at an incredible 24.5% annually through 2030, there's never been a better time to level up your skills and land your dream job." image="/src/assets/homepage/typing-2.png" />
                     </div>
                   </div>
 
@@ -365,7 +360,7 @@ import BlogCarousel from '../components/common/carousel/BlogCarousel.astro';
           document.addEventListener('DOMContentLoaded', function() {
             const swiper = new Swiper('.career-paths-carousel', {
               slidesPerView: 1,
-              spaceBetween: 30,
+              spaceBetween: 5,
               loop: true,
               autoplay: {
                 delay: 5000,
@@ -378,7 +373,7 @@ import BlogCarousel from '../components/common/carousel/BlogCarousel.astro';
               breakpoints: {
                 // When screen width is >= 768px
                 768: {
-                  slidesPerView: 1.8,
+                  slidesPerView: 1.9,
                   centeredSlides: true,
                 },
               }
@@ -386,32 +381,15 @@ import BlogCarousel from '../components/common/carousel/BlogCarousel.astro';
           });
         </script>
         <style>
-          .career-paths-carousel {
-            padding-bottom: 50px;
-          }
+            .career-paths-carousel {
+              padding-bottom: 50px;
+            }
 
-          .swiper-pagination {
-            bottom: 0 !important;
-          }
 
-          .swiper-pagination-bullet {
-            background: rgba(255, 255, 255, 0.5);
-          }
 
-          .swiper-pagination-bullet-active {
-            background: white;
-          }
 
-          /* Add gradient overlay to highlight active slide */
-          .swiper-slide-active {
-            z-index: 1;
-          }
 
-          /* Make sure the slides have same height */
-          .swiper-slide {
-            height: auto;
-          }
-        </style>
+          </style>
         <!-- todo: (5) start your journey -->
         <section class="px-4 lg:px-10 2xl:px-20 py-16 md:py-24">
           <section class="container mx-auto">

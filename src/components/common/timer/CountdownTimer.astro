@@ -1,13 +1,13 @@
 ---
 // Accepts props for the target date and storage key
 const {
-  targetDate = new Date(Date.now() + 24 * 60 * 60 * 1000), // Default: 1 day from now
+  targetDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Default: 7 days from now
   daysLabel = "Days",
   hoursLabel = "Hrs",
   minsLabel = "Mins",
   secsLabel = "Secs",
-  // Add a unique ID to identify this timer instance for storage
-  timerId = "default-countdown",
+  // We'll use a fixed timer ID for the universal timer
+  timerId = "universal-workshop-timer",
   // Optional initial values if coming from database
   initialDays,
   initialHours,
@@ -15,7 +15,9 @@ const {
   initialSeconds,
   bgColor = "bg-white",
   textColor = "text-primary",
-  labelColor = "text-gray-500"
+  labelColor = "text-gray-500",
+  autoReset = true, // New prop to control auto-reset behavior
+  resetDays = 7 // Number of days to reset to
 } = Astro.props;
 
 // Generate a unique DOM ID based on the timer ID to avoid conflicts with multiple instances
@@ -65,9 +67,14 @@ const domIdPrefix = `countdown-${timerId}-`;
     hours: initialHours,
     minutes: initialMinutes,
     seconds: initialSeconds
-  }
+  },
+  autoReset,
+  resetDays
 }}>
   document.addEventListener('DOMContentLoaded', function() {
+    // Use a consistent storage key for all timers
+    const GLOBAL_TIMER_KEY = 'global-workshop-countdown';
+
     // Get elements using the unique prefix
     const daysEl = document.getElementById(`${domIdPrefix}days`);
     const hoursEl = document.getElementById(`${domIdPrefix}hours`);
@@ -76,13 +83,10 @@ const domIdPrefix = `countdown-${timerId}-`;
 
     if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
 
-    // Create a storage key specific to this countdown
-    const storageKey = `countdown-${timerId}`;
-
     // Function to retrieve stored countdown data
     function getStoredCountdown() {
       try {
-        const stored = localStorage.getItem(storageKey);
+        const stored = localStorage.getItem(GLOBAL_TIMER_KEY);
         if (stored) {
           return JSON.parse(stored);
         }
@@ -95,7 +99,7 @@ const domIdPrefix = `countdown-${timerId}-`;
     // Function to store countdown data
     function storeCountdown(endTime) {
       try {
-        localStorage.setItem(storageKey, JSON.stringify({
+        localStorage.setItem(GLOBAL_TIMER_KEY, JSON.stringify({
           endTime: endTime
         }));
       } catch (e) {
@@ -103,75 +107,85 @@ const domIdPrefix = `countdown-${timerId}-`;
       }
     }
 
-    // Determine the end time based on priority:
-    // 1. Use stored end time if available
-    // 2. Use initial values from props (database) if provided
-    // 3. Fall back to the target date passed in props
+    // Function to create a new countdown
+    function createNewCountdown() {
+      const newEndTime = Date.now() + (resetDays * 24 * 60 * 60 * 1000);
+      storeCountdown(newEndTime);
+      return newEndTime;
+    }
+
+    // Get or initialize the countdown end time
     let endTime;
-
-    // Check for stored value first
     const storedData = getStoredCountdown();
+
     if (storedData && storedData.endTime) {
-      endTime = storedData.endTime;
-    }
-    // If we have initial values from database/props, use them
-    else if (initialValues.days !== undefined ||
-             initialValues.hours !== undefined ||
-             initialValues.minutes !== undefined ||
-             initialValues.seconds !== undefined) {
-
-      // Calculate total seconds from initial values
-      const days = initialValues.days || 0;
-      const hours = initialValues.hours || 0;
-      const minutes = initialValues.minutes || 0;
-      const seconds = initialValues.seconds || 0;
-
-      const totalSeconds = (days * 86400) + (hours * 3600) + (minutes * 60) + seconds;
-
-      // Set end time based on the provided initial values
-      endTime = Date.now() + (totalSeconds * 1000);
-
-      // Store this calculated end time
-      storeCountdown(endTime);
-    }
-    // Otherwise use the target date from props
-    else {
-      endTime = new Date(targetDateStr).getTime();
-      storeCountdown(endTime);
+      // If there's a stored end time but it's in the past, create a new one
+      if (storedData.endTime <= Date.now()) {
+        endTime = createNewCountdown();
+      } else {
+        endTime = storedData.endTime;
+      }
+    } else {
+      // If there's no stored end time, create a new one
+      endTime = createNewCountdown();
     }
 
     function updateCountdown() {
       const now = Date.now();
       const distance = endTime - now;
 
-      // Time calculations
-      const days = Math.max(0, Math.floor(distance / (1000 * 60 * 60 * 24)));
-      const hours = Math.max(0, Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
-      const minutes = Math.max(0, Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
-      const seconds = Math.max(0, Math.floor((distance % (1000 * 60)) / 1000));
+      // If countdown is finished
+      if (distance < 0) {
+        if (autoReset) {
+          // Reset to a new countdown
+          endTime = createNewCountdown();
+        } else {
+          // If no auto-reset, just show zeros
+          clearInterval(countdownInterval);
+          daysEl.textContent = '00';
+          hoursEl.textContent = '00';
+          minutesEl.textContent = '00';
+          secondsEl.textContent = '00';
 
-      // Add leading zeros
+          // Clear the stored data when finished if not auto-resetting
+          localStorage.removeItem(GLOBAL_TIMER_KEY);
+          return;
+        }
+      }
+
+      // Calculate time remaining
+      const updatedDistance = endTime - Date.now();
+
+      const days = Math.max(0, Math.floor(updatedDistance / (1000 * 60 * 60 * 24)));
+      const hours = Math.max(0, Math.floor((updatedDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+      const minutes = Math.max(0, Math.floor((updatedDistance % (1000 * 60 * 60)) / (1000 * 60)));
+      const seconds = Math.max(0, Math.floor((updatedDistance % (1000 * 60)) / 1000));
+
+      // Update the display
       daysEl.textContent = days.toString().padStart(2, '0');
       hoursEl.textContent = hours.toString().padStart(2, '0');
       minutesEl.textContent = minutes.toString().padStart(2, '0');
       secondsEl.textContent = seconds.toString().padStart(2, '0');
-
-      // If countdown is finished
-      if (distance < 0) {
-        clearInterval(countdownInterval);
-        daysEl.textContent = '00';
-        hoursEl.textContent = '00';
-        minutesEl.textContent = '00';
-        secondsEl.textContent = '00';
-
-        // Clear the stored data when finished
-        localStorage.removeItem(storageKey);
-      }
     }
 
     // Run immediately and then every second
     updateCountdown();
     const countdownInterval = setInterval(updateCountdown, 1000);
+
+    // Ensure timers stay in sync by listening for storage events from other tabs/pages
+    window.addEventListener('storage', function(e) {
+      if (e.key === GLOBAL_TIMER_KEY) {
+        try {
+          const newData = JSON.parse(e.newValue);
+          if (newData && newData.endTime) {
+            endTime = newData.endTime;
+            updateCountdown();
+          }
+        } catch(err) {
+          console.error("Error processing storage event:", err);
+        }
+      }
+    });
   });
 </script>
 
