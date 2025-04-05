@@ -1,24 +1,32 @@
 ---
-// Accepts props for the target date and storage key
+interface Props {
+  timestamp?: number;
+  daysLabel?: string;
+  hoursLabel?: string;
+  minsLabel?: string;
+  secsLabel?: string;
+  timerId?: string;
+  bgColor?: string;
+  textColor?: string;
+  labelColor?: string;
+}
+
 const {
-  targetDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Default: 7 days from now
+  timestamp, // Unix timestamp from API
   daysLabel = "Days",
   hoursLabel = "Hrs",
   minsLabel = "Mins",
   secsLabel = "Secs",
-  // We'll use a fixed timer ID for the universal timer
   timerId = "universal-workshop-timer",
-  // Optional initial values if coming from database
-  initialDays,
-  initialHours,
-  initialMinutes,
-  initialSeconds,
   bgColor = "bg-white",
   textColor = "text-primary",
   labelColor = "text-gray-500",
   autoReset = true, // New prop to control auto-reset behavior
   resetDays = 7 // Number of days to reset to
 } = Astro.props;
+
+// Convert timestamp to target date
+const targetDate = timestamp ? new Date(timestamp * 1000) : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
 // Generate a unique DOM ID based on the timer ID to avoid conflicts with multiple instances
 const domIdPrefix = `countdown-${timerId}-`;
@@ -59,23 +67,14 @@ const domIdPrefix = `countdown-${timerId}-`;
 </div>
 
 <script is:inline define:vars={{
-  targetDateStr: targetDate.toISOString(),
+  targetDate: targetDate.toISOString(),
   timerId,
   domIdPrefix,
-  initialValues: {
-    days: initialDays,
-    hours: initialHours,
-    minutes: initialMinutes,
-    seconds: initialSeconds
-  },
-  autoReset,
-  resetDays
 }}>
   document.addEventListener('DOMContentLoaded', function() {
-    // Use a consistent storage key for all timers
-    const GLOBAL_TIMER_KEY = 'global-workshop-countdown';
+    const endTime = new Date(targetDate).getTime();
 
-    // Get elements using the unique prefix
+    // Get elements
     const daysEl = document.getElementById(`${domIdPrefix}days`);
     const hoursEl = document.getElementById(`${domIdPrefix}hours`);
     const minutesEl = document.getElementById(`${domIdPrefix}minutes`);
@@ -83,83 +82,25 @@ const domIdPrefix = `countdown-${timerId}-`;
 
     if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
 
-    // Function to retrieve stored countdown data
-    function getStoredCountdown() {
-      try {
-        const stored = localStorage.getItem(GLOBAL_TIMER_KEY);
-        if (stored) {
-          return JSON.parse(stored);
-        }
-      } catch (e) {
-        console.error("Error retrieving stored countdown:", e);
-      }
-      return null;
-    }
-
-    // Function to store countdown data
-    function storeCountdown(endTime) {
-      try {
-        localStorage.setItem(GLOBAL_TIMER_KEY, JSON.stringify({
-          endTime: endTime
-        }));
-      } catch (e) {
-        console.error("Error storing countdown:", e);
-      }
-    }
-
-    // Function to create a new countdown
-    function createNewCountdown() {
-      const newEndTime = Date.now() + (resetDays * 24 * 60 * 60 * 1000);
-      storeCountdown(newEndTime);
-      return newEndTime;
-    }
-
-    // Get or initialize the countdown end time
-    let endTime;
-    const storedData = getStoredCountdown();
-
-    if (storedData && storedData.endTime) {
-      // If there's a stored end time but it's in the past, create a new one
-      if (storedData.endTime <= Date.now()) {
-        endTime = createNewCountdown();
-      } else {
-        endTime = storedData.endTime;
-      }
-    } else {
-      // If there's no stored end time, create a new one
-      endTime = createNewCountdown();
-    }
-
     function updateCountdown() {
       const now = Date.now();
       const distance = endTime - now;
 
       // If countdown is finished
       if (distance < 0) {
-        if (autoReset) {
-          // Reset to a new countdown
-          endTime = createNewCountdown();
-        } else {
-          // If no auto-reset, just show zeros
-          clearInterval(countdownInterval);
-          daysEl.textContent = '00';
-          hoursEl.textContent = '00';
-          minutesEl.textContent = '00';
-          secondsEl.textContent = '00';
-
-          // Clear the stored data when finished if not auto-resetting
-          localStorage.removeItem(GLOBAL_TIMER_KEY);
-          return;
-        }
+        clearInterval(countdownInterval);
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minutesEl.textContent = '00';
+        secondsEl.textContent = '00';
+        return;
       }
 
       // Calculate time remaining
-      const updatedDistance = endTime - Date.now();
-
-      const days = Math.max(0, Math.floor(updatedDistance / (1000 * 60 * 60 * 24)));
-      const hours = Math.max(0, Math.floor((updatedDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
-      const minutes = Math.max(0, Math.floor((updatedDistance % (1000 * 60 * 60)) / (1000 * 60)));
-      const seconds = Math.max(0, Math.floor((updatedDistance % (1000 * 60)) / 1000));
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Update the display
       daysEl.textContent = days.toString().padStart(2, '0');
@@ -171,21 +112,6 @@ const domIdPrefix = `countdown-${timerId}-`;
     // Run immediately and then every second
     updateCountdown();
     const countdownInterval = setInterval(updateCountdown, 1000);
-
-    // Ensure timers stay in sync by listening for storage events from other tabs/pages
-    window.addEventListener('storage', function(e) {
-      if (e.key === GLOBAL_TIMER_KEY) {
-        try {
-          const newData = JSON.parse(e.newValue);
-          if (newData && newData.endTime) {
-            endTime = newData.endTime;
-            updateCountdown();
-          }
-        } catch(err) {
-          console.error("Error processing storage event:", err);
-        }
-      }
-    });
   });
 </script>
 

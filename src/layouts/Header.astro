@@ -1,5 +1,9 @@
 ---
 import RegisterButton from '../components/common/buttons/RegisterButton.astro';
+
+const homepageresponse = await fetch('http://interview-node.vadakurry.com/wp-json/interview-node/v1/home-sections');
+const homepageapiData = await homepageresponse.json();
+const homepageData = homepageapiData.data; // or const { data: homepageData } = homepageapiData;
 ---
 <header class="bg-white fixed left-0 right-0 top-0 px-4 2xl:px-20 lg:px-10 z-50  ">
 <section class="container mx-auto  bg-white flex justify-between items-center  py-5 ">
@@ -12,7 +16,7 @@ import RegisterButton from '../components/common/buttons/RegisterButton.astro';
   <nav class="hidden md:flex items-center gap-10 ">
     <a href="/courses" class=" hover:text-[#0B207C] ">Courses</a>
     <a href="/blogs" class="hover:text-[#0B207C] ">Blog</a>
-   <RegisterButton />
+   <RegisterButton link={homepageData.hero.workshop.upcoming.link} />
 </nav>
 
   <button class="md:hidden text-[#0D1942]" id="mobile-menu-button" aria-label="Open mobile menu">
@@ -34,7 +38,7 @@ import RegisterButton from '../components/common/buttons/RegisterButton.astro';
   <nav class="flex flex-col items-center gap-6 p-8">
     <a href="/courses" class="text-xl text-[#0D1942] hover:text-blue-700 transition-colors">Courses</a>
     <a href="/blogs" class="text-xl text-[#0D1942] hover:text-blue-700 transition-colors">Blog</a>
-    <RegisterButton />
+    <RegisterButton link={homepageData.hero.workshop.upcoming.link} />
   </nav>
 </div>
 

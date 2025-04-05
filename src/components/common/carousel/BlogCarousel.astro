@@ -1,29 +1,20 @@
 ---
 import BlogCard from "../cards/BlogCard.astro";
+const { blogs } = Astro.props;
 ---
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 <script is:inline src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <div class="insights-carousel swiper">
     <div class="swiper-wrapper">
       <!-- Blog post 1 -->
+      {blogs.map((blog) => (
       <div class="swiper-slide">
-      <BlogCard image="/src/assets/blogs/team-1.png" title="Ace Your Anthropic ML Interview: Top 25 Questions and Expert..." date="01st March 2025" author="Santosh Rout" />
+      <BlogCard image={blog.image_url} title={blog.title} date={blog.date} author={blog.author} />
       </div>
+      ))}
 
       <!-- Blog post 2 -->
-      <div class="swiper-slide">
-        <BlogCard image="/src/assets/blogs/team-2.png" title="Ace Your Anthropic ML Interview: Top 25 Questions and Expert..." date="01st March 2025" author="Santosh Rout" />
-      </div>
-
-      <!-- Blog post 3 -->
-      <div class="swiper-slide">
-        <BlogCard image="/src/assets/blogs/team-3.png" title="Ace Your Anthropic ML Interview: Top 25 Questions and Expert..." date="01st March 2025" author="Santosh Rout" />
-      </div>
-
-<!-- Blog post 3 -->
-<div class="swiper-slide">
-<BlogCard image="/src/assets/blogs/team-3.png" title="Ace Your Anthropic ML Interview: Top 25 Questions and Expert..." date="01st March 2025" author="Santosh Rout" />
-</div>
+   
     </div>
 
     <!-- Pagination dots -->

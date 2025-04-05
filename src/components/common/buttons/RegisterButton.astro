@@ -1,7 +1,7 @@
 ---
-const { textColour = 'text-white', textHoverColour = 'group-hover:text-white', backgroundColour = 'bg-primary',svgBackgroundColour = 'bg-white',svgTextColour = 'text-[#0D1942]' } = Astro.props;
+const { link = '#', textColour = 'text-white', textHoverColour = 'group-hover:text-white', backgroundColour = 'bg-primary',svgBackgroundColour = 'bg-white',svgTextColour = 'text-[#0D1942]' } = Astro.props;
 ---
-<a href="#" class={`${backgroundColour} w-fit ${textColour} pl-2 pr-4 py-1.5 group rounded-full flex items-center gap-2 hover:bg-blue-800 transition-colors`}>
+<a href={link} class={`${backgroundColour} w-fit ${textColour} pl-2 pr-4 py-1.5 group rounded-full flex items-center gap-2 hover:bg-blue-800 transition-colors`}>
     <div class={`${svgBackgroundColour} ${svgTextColour} group  rounded-full p-2 group-hover:translate-x-1 duration-300`}>
 
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
